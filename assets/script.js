@@ -51,13 +51,20 @@
     if (track) track.innerHTML += track.innerHTML;
   });
 
-  /* ---------- video lightbox (YouTube) ---------- */
+  /* ---------- lightbox (YouTube videos + gallery photos) ---------- */
   var lightbox = document.getElementById("lightbox");
   var lightboxFrame = document.getElementById("lightboxFrame");
   var lightboxClose = document.getElementById("lightboxClose");
+  var lightboxCap = document.getElementById("lightboxCap");
+  var lightboxPrev = document.getElementById("lightboxPrev");
+  var lightboxNext = document.getElementById("lightboxNext");
   if (lightbox) {
     var openLightbox = function (videoId, ratio) {
+      photoIndex = -1;
+      showArrows(false);
+      setCap("");
       lightboxFrame.innerHTML = "";
+      lightboxFrame.classList.remove("photo");
       lightboxFrame.classList.toggle("wide", ratio === "wide");
       var iframe = document.createElement("iframe");
       iframe.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&autoplay=1";
@@ -74,8 +81,75 @@
       lightbox.classList.remove("open");
       lightbox.setAttribute("aria-hidden", "true");
       lightboxFrame.innerHTML = "";
+      lightboxFrame.classList.remove("photo");
+      photoIndex = -1;
+      showArrows(false);
+      setCap("");
       document.body.style.overflow = "";
     };
+
+    /* photos: gallery figures carrying data-photo, browsable with the arrows */
+    var photoEls = [].slice.call(document.querySelectorAll("[data-photo]"));
+    var photoIndex = -1;
+
+    function setCap(text) {
+      if (!lightboxCap) return;
+      lightboxCap.textContent = text || "";
+      lightboxCap.classList.toggle("show", !!text);
+    }
+    function showArrows(on) {
+      var many = on && photoEls.length > 1;
+      if (lightboxPrev) lightboxPrev.classList.toggle("on", many);
+      if (lightboxNext) lightboxNext.classList.toggle("on", many);
+    }
+    function showPhoto(i) {
+      if (!photoEls.length) return;
+      photoIndex = (i + photoEls.length) % photoEls.length;
+      var el = photoEls[photoIndex];
+      lightboxFrame.classList.remove("wide");
+      lightboxFrame.classList.add("photo");
+      lightboxFrame.innerHTML = "";
+      var img = document.createElement("img");
+      img.src = el.dataset.photo;
+      img.alt = (el.querySelector("img") && el.querySelector("img").alt) || "";
+      lightboxFrame.appendChild(img);
+      setCap(el.dataset.caption || "");
+      showArrows(true);
+      // warm the neighbours so arrowing through feels instant
+      [photoIndex + 1, photoIndex - 1].forEach(function (n) {
+        var next = photoEls[(n + photoEls.length) % photoEls.length];
+        if (next) { var pre = new Image(); pre.src = next.dataset.photo; }
+      });
+    }
+    function openPhoto(i) {
+      showPhoto(i);
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    photoEls.forEach(function (el, i) {
+      el.addEventListener("click", function () { openPhoto(i); });
+      el.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); openPhoto(i); }
+      });
+    });
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener("click", function (ev) {
+        ev.stopPropagation(); showPhoto(photoIndex - 1);
+      });
+    }
+    if (lightboxNext) {
+      lightboxNext.addEventListener("click", function (ev) {
+        ev.stopPropagation(); showPhoto(photoIndex + 1);
+      });
+    }
+    document.addEventListener("keydown", function (ev) {
+      if (photoIndex < 0 || !lightbox.classList.contains("open")) return;
+      if (ev.key === "ArrowLeft") { ev.preventDefault(); showPhoto(photoIndex - 1); }
+      if (ev.key === "ArrowRight") { ev.preventDefault(); showPhoto(photoIndex + 1); }
+    });
+
     document.querySelectorAll("[data-video]").forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.preventDefault();
