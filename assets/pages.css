@@ -72,11 +72,11 @@
   flex: 0 0 auto;
   font-family: var(--font-mono);
   font-size: .62rem;
-  letter-spacing: .22em;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
-  padding: .5rem .85rem;
+  padding: .5rem .62rem;
   border-radius: 6px;
   border: 1px solid transparent;
   transition: color .3s, border-color .3s, background .3s;
