@@ -93,36 +93,121 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
-  /* ---------- YouTube video backgrounds (lazy autoplay loops) ---------- */
+  /* ---------- YouTube video backgrounds (lazy, muted, hard-looped) ----------
+     Uses the IFrame Player API so we can force a restart on ENDED — the
+     loop=1&playlist= URL trick is unreliable and silently stops on some clips.
+     Falls back to a plain iframe if the API can't load.                     */
   var vbgs = document.querySelectorAll(".video-bg[data-ytbg]");
-  if (vbgs.length && "IntersectionObserver" in window) {
-    var vbgIO = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var el = entry.target;
-          if (el.dataset.loaded) return;
-          el.dataset.loaded = "1";
-          var id = el.dataset.ytbg;
-          var iframe = document.createElement("iframe");
-          iframe.src =
-            "https://www.youtube-nocookie.com/embed/" + id +
-            "?autoplay=1&mute=1&loop=1&playlist=" + id +
-            "&controls=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1";
-          iframe.title = "";
-          iframe.setAttribute("aria-hidden", "true");
-          iframe.setAttribute("tabindex", "-1");
-          iframe.allow = "autoplay; encrypted-media";
-          iframe.addEventListener("load", function () {
-            setTimeout(function () { iframe.classList.add("on"); }, 600);
-          });
-          el.insertBefore(iframe, el.firstChild);
-          vbgIO.unobserve(el);
+  if (vbgs.length) {
+    var ytReady = false;
+    var ytWaiting = [];
+    var ytFailed = false;
+
+    var whenYT = function (fn) {
+      if (ytReady || ytFailed) { fn(); } else { ytWaiting.push(fn); }
+    };
+    var drainYT = function () {
+      ytWaiting.splice(0, ytWaiting.length).forEach(function (fn) { fn(); });
+    };
+
+    window.onYouTubeIframeAPIReady = function () {
+      ytReady = true;
+      drainYT();
+    };
+
+    if (window.YT && window.YT.Player) {
+      ytReady = true;
+    } else {
+      var ytScript = document.createElement("script");
+      ytScript.src = "https://www.youtube.com/iframe_api";
+      ytScript.async = true;
+      document.head.appendChild(ytScript);
+      // if the API never arrives (blocked/offline), degrade to plain iframes
+      setTimeout(function () {
+        if (ytReady) return;
+        ytFailed = true;
+        drainYT();
+      }, 6000);
+    }
+
+    var plainFrame = function (el, id) {
+      var iframe = document.createElement("iframe");
+      iframe.src =
+        "https://www.youtube-nocookie.com/embed/" + id +
+        "?autoplay=1&mute=1&loop=1&playlist=" + id +
+        "&controls=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1";
+      iframe.title = "";
+      iframe.setAttribute("aria-hidden", "true");
+      iframe.setAttribute("tabindex", "-1");
+      iframe.allow = "autoplay; encrypted-media";
+      iframe.addEventListener("load", function () {
+        setTimeout(function () { iframe.classList.add("on"); }, 600);
+      });
+      el.insertBefore(iframe, el.firstChild);
+    };
+
+    var mountBg = function (el) {
+      if (el.dataset.loaded) return;
+      el.dataset.loaded = "1";
+      var id = el.dataset.ytbg;
+
+      whenYT(function () {
+        if (!window.YT || !window.YT.Player) { plainFrame(el, id); return; }
+
+        var host = document.createElement("div");
+        host.setAttribute("aria-hidden", "true");
+        el.insertBefore(host, el.firstChild);
+
+        new window.YT.Player(host, {
+          videoId: id,
+          host: "https://www.youtube-nocookie.com",
+          playerVars: {
+            autoplay: 1, mute: 1, controls: 0, rel: 0, playsinline: 1,
+            modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0,
+            loop: 1, playlist: id
+          },
+          events: {
+            onReady: function (e) {
+              e.target.mute();
+              e.target.playVideo();
+              var f = e.target.getIframe();
+              if (f) {
+                f.setAttribute("tabindex", "-1");
+                f.setAttribute("aria-hidden", "true");
+                f.setAttribute("title", "");
+                setTimeout(function () { f.classList.add("on"); }, 700);
+              }
+            },
+            onStateChange: function (e) {
+              // 0 = ENDED — restart at once so it never lands on the end card
+              if (e.data === 0) { e.target.seekTo(0, true); e.target.playVideo(); }
+              // 2 = PAUSED — a background loop should never sit paused
+              if (e.data === 2) { e.target.playVideo(); }
+            },
+            onError: function (e) {
+              var f = e.target && e.target.getIframe();
+              if (f && f.parentNode) f.parentNode.removeChild(f);
+            }
+          }
         });
-      },
-      { rootMargin: "300px 0px" }
-    );
-    vbgs.forEach(function (el) { vbgIO.observe(el); });
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      var vbgIO = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            mountBg(entry.target);
+            vbgIO.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "300px 0px" }
+      );
+      vbgs.forEach(function (el) { vbgIO.observe(el); });
+    } else {
+      vbgs.forEach(mountBg);
+    }
   }
 
   /* ---------- side dot nav active state ---------- */

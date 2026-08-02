@@ -138,7 +138,8 @@ body::after {
   top: 50%; left: 50%;
   width: max(100vw, 178vh);
   height: max(100vh, 56.5vw);
-  transform: translate(-50%, -50%);
+  /* over-scale so YouTube's title bar, controls and end-cards crop out of frame */
+  transform: translate(-50%, -50%) scale(1.28);
   border: 0;
   pointer-events: none;
   opacity: 0;
@@ -158,7 +159,25 @@ body::after {
     linear-gradient(180deg, rgba(10,4,4,.82), rgba(10,4,4,.6) 45%, rgba(10,4,4,.94));
 }
 section > .video-bg + .wrap, section .wrap { position: relative; z-index: 2; }
-.hero .video-bg { z-index: -1; }
+
+/* hero: video pushed right 20% so the subject sits right, focus stays left */
+.hero .video-bg {
+  z-index: -1;
+  /* solid black under the text column, fading out under the video itself */
+  background: linear-gradient(90deg, #000 0%, #000 30%, rgba(0,0,0,.78) 52%, rgba(0,0,0,.5) 100%);
+}
+.hero .video-bg iframe { left: 70%; }
+.hero .video-bg-overlay {
+  background:
+    linear-gradient(90deg,
+      #000 0%,
+      #000 20%,
+      rgba(0,0,0,.92) 30%,
+      rgba(6,2,2,.62) 46%,
+      rgba(10,4,4,.3) 66%,
+      rgba(10,4,4,.42) 100%),
+    linear-gradient(180deg, rgba(10,4,4,.72), rgba(10,4,4,.12) 42%, rgba(10,4,4,.9));
+}
 
 /* ---------- side dot navigation ---------- */
 .dot-nav {
@@ -445,10 +464,12 @@ section {
 }
 #embers { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 
-.hero-content { max-width: 900px; position: relative; z-index: 1; }
+/* hero copy hugs the left content gutter — never centred over the performer */
+.hero-content { text-align: left; position: relative; z-index: 1; }
+.hero-content > * { max-width: 640px; margin-right: auto; }
 .hero .eyebrow { margin-bottom: 1.6rem; }
 .hero h1 {
-  font-size: clamp(4.4rem, 13vw, 10rem);
+  font-size: clamp(4rem, 9.4vw, 8.6rem);
   text-transform: uppercase;
   background: var(--grad-main);
   -webkit-background-clip: text;
@@ -1259,12 +1280,27 @@ footer {
   .hero-side { display: none; }
   .bg-collage-inner { grid-template-columns: repeat(4, 1fr); }
   .dot-nav { display: none; }
+  .hero-content > * { max-width: 560px; }
+  .hero .video-bg iframe { left: 62%; }
+  .hero .video-bg-overlay {
+    background:
+      linear-gradient(90deg, #000 0%, #000 12%, rgba(0,0,0,.9) 26%, rgba(8,3,3,.6) 48%, rgba(10,4,4,.4) 100%),
+      linear-gradient(180deg, rgba(10,4,4,.72), rgba(10,4,4,.18) 42%, rgba(10,4,4,.9));
+  }
 }
 
 @media (max-width: 780px) {
   html { scroll-snap-type: none; }
   section { min-height: 0; display: block; }
   .hero { display: flex; }
+  .hero-content > * { max-width: 100%; }
+  /* phones: no room for a side-by-side split — keep video centred, darken it hard */
+  .hero .video-bg iframe { left: 50%; }
+  .hero .video-bg-overlay {
+    background:
+      linear-gradient(180deg, rgba(10,4,4,.86) 0%, rgba(10,4,4,.6) 40%, rgba(10,4,4,.94) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.8), rgba(0,0,0,.42) 60%, rgba(0,0,0,.55));
+  }
   .nav-links {
     position: fixed; inset: 0;
     background: rgba(10,4,4,.96);
