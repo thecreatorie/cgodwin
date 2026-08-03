@@ -13,17 +13,38 @@
   window.addEventListener("scroll", onScrollNav, { passive: true });
   onScrollNav();
 
-  burger.addEventListener("click", function () {
-    var open = navLinks.classList.toggle("open");
+  function setMenu(open) {
+    navLinks.classList.toggle("open", open);
     burger.classList.toggle("open", open);
+    document.body.classList.toggle("menu-open", open);
     burger.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open) {
+      var os = navLinks.querySelectorAll(".has-sub.open");
+      for (var i = 0; i < os.length; i++) {
+        os[i].classList.remove("open");
+        var b = os[i].querySelector(".nav-sub-toggle");
+        if (b) b.setAttribute("aria-expanded", "false");
+      }
+    }
+  }
+
+  burger.addEventListener("click", function () {
+    setMenu(!navLinks.classList.contains("open"));
   });
   navLinks.addEventListener("click", function (e) {
-    if (e.target.tagName === "A") {
-      navLinks.classList.remove("open");
-      burger.classList.remove("open");
-      burger.setAttribute("aria-expanded", "false");
+    var t = e.target;
+    var toggle = t.closest ? t.closest(".nav-sub-toggle") : null;
+    if (toggle) {
+      e.preventDefault();
+      var li = toggle.parentNode;
+      var op = li.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", op ? "true" : "false");
+      return;
     }
+    if (t.closest ? t.closest("a") : t.tagName === "A") setMenu(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && navLinks.classList.contains("open")) setMenu(false);
   });
 
   /* ---------- scroll reveal ---------- */
