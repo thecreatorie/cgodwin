@@ -127,9 +127,12 @@
 /* ---------- photo gallery (masonry columns) ---------- */
 .pgal {
   margin-top: 2.6rem;
-  column-count: 4;
-  column-gap: 14px;
+  column-count: 3;
+  column-gap: 16px;
 }
+.pgal-item:first-child { column-span: all; margin-bottom: 16px; }
+.pgal-item:first-child img { max-height: 78vh; object-fit: cover; }
+.watch-first { padding-top: clamp(3.5rem, 7vw, 6rem); }
 .pgal-item {
   break-inside: avoid;
   margin: 0 0 14px;
@@ -391,7 +394,7 @@
 
 /* ---------- responsive ---------- */
 @media (max-width: 1020px) {
-  .pgal { column-count: 3; }
+  .pgal { column-count: 2; }
   .sub-hero-photo { background-position: 66% center; }
 }
 @media (max-width: 780px) {
