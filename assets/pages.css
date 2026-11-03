@@ -130,8 +130,6 @@
   column-count: 3;
   column-gap: 16px;
 }
-.pgal-item:first-child { column-span: all; margin-bottom: 16px; }
-.pgal-item:first-child img { max-height: 78vh; object-fit: cover; }
 .watch-first { padding-top: clamp(3.5rem, 7vw, 6rem); }
 .pgal-item {
   break-inside: avoid;
@@ -422,3 +420,7 @@
   .disc-strip a { font-size: .58rem; padding: .45rem .7rem; }
   .more-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---------- EPK ---------- */
+.epk-bio { max-width: 72ch; margin-bottom: 1rem; }
+#bio .spec-head { margin-top: 2.6rem; }
