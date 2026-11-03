@@ -1595,3 +1595,33 @@ footer {
 @media (max-width: 560px) {
   .vid-feature-play { width: 72px; height: 72px; }
 }
+
+/* ---------- simplified offerings ---------- */
+.offer-grid { grid-template-columns: repeat(5, 1fr); }
+.offer { display: block; color: inherit; text-decoration: none; }
+.offer p { color: var(--muted); font-weight: 300; font-size: .92rem; line-height: 1.6; margin-top: .4rem; }
+.offer:hover h3 { color: var(--text); }
+@media (max-width: 1020px) { .offer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }
+
+/* ---------- photo feeds: true aspect ratio, no crops, even gutters ---------- */
+.gal-grid, .acts-grid {
+  display: block;
+  column-count: 3;
+  column-gap: 16px;
+}
+.gal-grid > .gal-item, .acts-grid > .act-card {
+  display: block;
+  break-inside: avoid;
+  margin: 0 0 16px;
+  height: auto;
+  aspect-ratio: auto;
+  grid-row: auto; grid-column: auto;
+}
+.gal-item img, .act-card img { width: 100%; height: auto; object-fit: initial; display: block; }
+@media (max-width: 1020px) { .gal-grid, .acts-grid { column-count: 2; } }
+@media (max-width: 560px) {
+  .gal-grid, .acts-grid { column-gap: 10px; }
+  .gal-grid > .gal-item, .acts-grid > .act-card { margin-bottom: 10px; }
+}
+@media (max-width: 420px) { .acts-grid { column-count: 1; } }
