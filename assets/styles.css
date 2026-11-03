@@ -907,8 +907,8 @@ section {
 /* ---------- gallery ---------- */
 .gal-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 205px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
   grid-auto-flow: dense;
   gap: 1rem;
   margin-top: 2.6rem;
@@ -946,6 +946,7 @@ section {
 .gal-tall { grid-row: span 2; }
 .gal-wide { grid-column: span 2; }
 .gal-big  { grid-column: span 2; grid-row: span 2; }
+.gal-tall-lg { grid-row: span 2; }
 
 /* ---------- services ---------- */
 .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; margin-top: 2.6rem; }
@@ -1278,7 +1279,8 @@ footer {
   .acts-grid { grid-template-columns: repeat(2, 1fr); }
   .video-grid { grid-template-columns: repeat(2, 1fr); }
   .disc-grid { grid-template-columns: repeat(2, 1fr); }
-  .gal-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 185px; }
+  .gal-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 260px; }
+  .gal-tall-lg { grid-row: auto; }
   .hero-side { display: none; }
   .bg-collage-inner { grid-template-columns: repeat(4, 1fr); }
   .dot-nav { display: none; }
@@ -1322,7 +1324,7 @@ footer {
   .about-photo { position: static; max-width: 420px; }
   .svc-grid { grid-template-columns: 1fr; }
   .skill-years { grid-template-columns: repeat(2, 1fr); }
-  .gal-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 165px; }
+  .gal-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; }
   .ghost::before { font-size: 6.5rem; top: 4rem; }
   .bg-collage { grid-template-columns: repeat(3, 1fr); }
 }
@@ -1529,4 +1531,67 @@ footer {
   .nav-sub li { border-left: 1px solid rgba(255, 106, 0, .3); margin-left: .2rem; }
   .nav-sub a { padding: .6rem .95rem; font-size: .7rem; border-radius: 0; }
   .nav-sub a.nav-sub-all { border-bottom: none; margin-bottom: 0; }
+}
+
+/* ---------- featured video + option chips ---------- */
+.vid-feature {
+  position: relative;
+  margin-top: 2.6rem;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--bg-dark, #090505);
+  transition: border-color .4s, box-shadow .4s;
+}
+.vid-feature img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: saturate(.9) brightness(.82);
+  transition: transform 1.2s cubic-bezier(.2,.65,.3,1), filter .7s;
+}
+.vid-feature:hover, .vid-feature:focus-visible { border-color: var(--border); box-shadow: var(--glow-violet); outline: none; }
+.vid-feature:hover img { transform: scale(1.03); filter: saturate(1.05) brightness(.95); }
+.vid-feature-play {
+  position: absolute; left: 50%; top: calc(50% - 1.6rem);
+  transform: translate(-50%, -50%);
+  width: 96px; height: 96px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(6, 2, 2, .45);
+  border: 1px solid rgba(255, 255, 255, .55);
+  backdrop-filter: blur(4px);
+  transition: transform .5s, border-color .5s;
+}
+.vid-feature-play svg { margin-left: 6px; }
+.vid-feature:hover .vid-feature-play { transform: translate(-50%, -50%) scale(1.08); border-color: var(--text); }
+.vid-feature figcaption {
+  padding: 1.1rem 1.3rem 1rem;
+  font-family: var(--font-mono);
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text);
+  border-top: 1px solid var(--border-soft);
+  text-align: left;
+}
+.vid-heading {
+  margin-top: 3.6rem;
+  font-family: var(--font-mono);
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--muted);
+}
+.vid-heading + .video-grid { margin-top: 1.4rem; }
+.opt-chips { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+.opt-chips li {
+  font-family: var(--font-mono);
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text);
+  padding: .45rem .8rem .4rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+@media (max-width: 560px) {
+  .vid-feature-play { width: 72px; height: 72px; }
 }
