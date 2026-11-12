@@ -424,3 +424,29 @@
 /* ---------- EPK ---------- */
 .epk-bio { max-width: 72ch; margin-bottom: 1rem; }
 #bio .spec-head { margin-top: 2.6rem; }
+
+/* ---------- sizing page ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; }
+.measure-grid { display: grid; grid-template-columns: minmax(260px, 420px) 1fr; gap: 3rem; margin-top: 2.4rem; align-items: start; }
+.croquis-wrap { position: sticky; top: 6.5rem; border: 1px solid var(--border-soft); border-radius: 14px; padding: 1.2rem; background: var(--card); }
+.croquis { width: 100%; height: auto; display: block; }
+.croquis .body { fill: rgba(255, 255, 255, .05); stroke: rgba(255, 255, 255, .35); stroke-width: 1.2; }
+.croquis .m { stroke: var(--flame); stroke-width: 1.4; fill: none; transition: opacity .2s; }
+.croquis .m circle:not(.tag) { fill: var(--flame); }
+.croquis .tag { fill: #140806; stroke: var(--flame); stroke-width: 1; }
+.croquis text { fill: var(--text); stroke: none; font: 700 9px var(--font-mono); text-anchor: middle; }
+.croquis .m.hl { stroke: var(--gold); stroke-width: 2.4; }
+.croquis .m.hl .tag { fill: var(--flame); }
+.mlist { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 2rem; }
+.mrow { display: grid; grid-template-columns: 2rem 1fr; gap: .1rem .6rem; padding: .7rem 0; border-bottom: 1px solid var(--border-soft); break-inside: avoid; cursor: default; }
+.mnum { grid-row: span 2; font: 700 .72rem var(--font-mono); color: var(--flame); width: 1.7rem; height: 1.7rem; border: 1px solid var(--flame); border-radius: 50%; display: grid; place-items: center; }
+.mlabel { font: 700 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+.mval { color: var(--text); font-weight: 300; }
+.mrow.hl .mnum { background: var(--flame); color: #140806; }
+@media (max-width: 1100px) { .mlist { columns: 1; } }
+@media (max-width: 780px) {
+  .two-col, .measure-grid { grid-template-columns: 1fr; }
+  .croquis-wrap { position: static; max-width: 380px; margin: 0 auto; }
+  .mlist { columns: 2; column-gap: 1.2rem; }
+}
+@media (max-width: 520px) { .mlist { columns: 1; } }
