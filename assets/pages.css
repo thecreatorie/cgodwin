@@ -22,9 +22,13 @@
 .sub-hero-photo {
   position: absolute; inset: 0; z-index: -2;
   background-size: cover;
-  background-position: 72% center;
+  background-position: var(--fx, 50%) var(--fy, 30%);
   background-repeat: no-repeat;
   animation: heroDrift 26s ease-in-out infinite alternate;
+}
+/* desktop: the photo sits on the right so the text never covers the face */
+@media (min-width: 1021px) {
+  .sub-hero-photo { left: 40%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%); mask-image: linear-gradient(90deg, transparent 0%, #000 30%); }
 }
 .sub-hero-scrim {
   position: absolute; inset: 0; z-index: -1;
@@ -97,7 +101,7 @@
 }
 .act-row {
   display: grid;
-  grid-template-columns: 5.5rem 1fr;
+  grid-template-columns: 1fr;
   gap: 1.4rem;
   padding: 1.9rem 0;
   border-bottom: 1px solid var(--border-soft);
@@ -393,12 +397,10 @@
 /* ---------- responsive ---------- */
 @media (max-width: 1020px) {
   .pgal { column-count: 2; }
-  .sub-hero-photo { background-position: 66% center; }
 }
 @media (max-width: 780px) {
   .pgal { column-count: 2; column-gap: 10px; }
   .pgal-item { margin-bottom: 10px; }
-  .act-row { grid-template-columns: 3.4rem 1fr; gap: 1rem; }
   .act-num { font-size: 1.8rem; }
   .act-body h3 { font-size: 1.5rem; }
   .spec-row { grid-template-columns: 1fr; gap: .35rem; }
@@ -450,3 +452,8 @@
   .mlist { columns: 2; column-gap: 1.2rem; }
 }
 @media (max-width: 520px) { .mlist { columns: 1; } }
+
+/* act lists: names and option tags only */
+.act-row { padding: 1.1rem 0; }
+.act-body h3 { margin-bottom: 0; }
+.act-body .opt-chips { margin-top: .7rem; }
