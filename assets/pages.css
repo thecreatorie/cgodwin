@@ -458,3 +458,9 @@
 .act-body h3 { margin-bottom: 0; }
 .act-body .opt-chips { margin-top: .7rem; }
 
+
+/* ---------- mobile tap targets & legibility ---------- */
+.disc-strip a { min-height: 40px; display: inline-flex; align-items: center; }
+@media (max-width: 780px) { .disc-strip a { font-size: .66rem; } }
+.foot-links { line-height: 1.2; }
+.foot-links a { display: inline-block; padding: .65rem .15rem; }
