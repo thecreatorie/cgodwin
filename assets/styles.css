@@ -1664,3 +1664,26 @@ footer {
   .reel-top { grid-template-columns: 1fr; gap: 2rem; }
   .reel-top .reel-featured { width: min(400px, 100%); margin: 0 auto; }
 }
+
+/* demo reel: buttons sit under the title on desktop, under the video on phones */
+.reel-top { grid-template-areas: "intro video" "btns video"; grid-template-rows: auto 1fr; }
+.reel-intro { grid-area: intro; align-self: end; }
+.reel-top .reel-featured { grid-area: video; }
+.reel-top > .reel-btns { grid-area: btns; align-self: start; margin-top: 1.8rem; }
+@media (max-width: 860px) {
+  .reel-top { grid-template-areas: "intro" "video" "btns"; grid-template-rows: auto; }
+  .reel-intro .lede { display: none; }
+  .reel-top > .reel-btns { justify-content: center; margin-top: 0; }
+  .reel-intro { text-align: center; }
+  .reel-top .eyebrow { justify-content: center; }
+}
+.reel-top { grid-template-areas: ". video" "intro video" "btns video" ". video"; grid-template-rows: 1fr auto auto 1fr; row-gap: 0; }
+@media (max-width: 860px) {
+  .reel-top { grid-template-areas: "intro" "video" "btns"; grid-template-rows: auto; row-gap: 2rem; }
+  .reel-top > .reel-btns { flex-direction: column; align-items: center; gap: .7rem; }
+  .reel-top > .reel-btns .btn { width: min(320px, 100%); justify-content: center; text-align: center; }
+}
+
+/* classes: photo above the weekly schedule */
+.class-photo { margin: 2.4rem 0 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.class-photo img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; object-position: 50% 45%; }
