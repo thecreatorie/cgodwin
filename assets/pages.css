@@ -478,3 +478,16 @@
 .pf-chip.on { color: #06060f; background: var(--grad-hot); border-color: transparent; }
 .pf .pgal-item[hidden] { display: none; }
 @media (max-width: 780px) { .pf-head { padding-top: 6.5rem; } .pf-chips { top: 58px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .pf-chips::-webkit-scrollbar { display: none; } .pf-chip { flex: 0 0 auto; } }
+
+/* ---------- act pills ---------- */
+.act-pills { list-style: none; margin: 1.8rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+.act-pills li { font: 700 .74rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text);
+  border: 1px solid var(--border); border-radius: 999px; padding: .75rem 1.15rem; background: var(--card); }
+.act-pills li a { color: var(--flame); text-decoration: none; }
+.sub-sec .rental { margin-top: 2rem; }
+@media (max-width: 560px) { .act-pills li { font-size: .66rem; padding: .65rem .95rem; } }
+
+/* ---------- masonry stability: transforms inside CSS columns make items jump/flicker ---------- */
+.pgal-item { display: inline-block; width: 100%; vertical-align: top; transform: translateZ(0); }
+.pgal-item.reveal, .pgal-item.reveal.in { transform: translateZ(0); transition: opacity .8s ease, border-color .35s, box-shadow .35s; }
+.pgal-item:hover, .pgal-item:focus-visible { transform: translateZ(0); }

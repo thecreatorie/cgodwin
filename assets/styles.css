@@ -1653,3 +1653,14 @@ footer {
 
 /* parent menu item highlight when on one of its pages */
 .has-sub.is-active > .nav-sub-toggle { color: var(--flame); }
+
+/* ---------- demo reel: title beside featured video ---------- */
+.reel-top { display: grid; grid-template-columns: 1fr minmax(260px, 400px); gap: 3rem; align-items: center; text-align: left; }
+.reel-top .eyebrow { justify-content: flex-start; }
+.reel-top .reel-featured { margin: 0; width: 100%; aspect-ratio: 4 / 5; }
+.reel-intro .lede { margin-top: 1rem; max-width: 46ch; }
+.reel-btns { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+@media (max-width: 860px) {
+  .reel-top { grid-template-columns: 1fr; gap: 2rem; }
+  .reel-top .reel-featured { width: min(400px, 100%); margin: 0 auto; }
+}
