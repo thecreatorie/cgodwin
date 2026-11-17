@@ -1531,7 +1531,7 @@ footer {
   .has-sub.open > .nav-sub-toggle .caret { transform: translateY(2px) rotate(-135deg); }
   .has-sub.open > .nav-sub-toggle { color: var(--flame); }
   .nav-sub li { border-left: 1px solid rgba(255, 106, 0, .3); margin-left: .2rem; }
-  .nav-sub a { padding: .6rem .95rem; font-size: .7rem; border-radius: 0; }
+  .nav-sub a { padding: .85rem .95rem; font-size: .72rem; border-radius: 0; }
   .nav-sub a.nav-sub-all { border-bottom: none; margin-bottom: 0; }
 }
 
@@ -1645,3 +1645,8 @@ footer {
 .sched-room { font: 700 .58rem var(--font-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 .sched-note { margin-top: 1.4rem; text-align: center; font-size: .92rem; color: var(--muted); }
 @media (max-width: 900px) { .sched-grid { grid-template-columns: 1fr; } }
+
+/* ---------- mobile tap targets & legibility ---------- */
+.burger { padding: 9px; margin: -9px; }
+.foot-inner a { display: inline-block; padding: .55rem 0; }
+.badge { font-size: .62rem; }

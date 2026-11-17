@@ -193,7 +193,10 @@
      loop=1&playlist= URL trick is unreliable and silently stops on some clips.
      Falls back to a plain iframe if the API can't load.                     */
   var vbgs = document.querySelectorAll(".video-bg[data-ytbg]");
-  if (vbgs.length) {
+  // skip background videos for visitors on data saver or who prefer reduced motion
+  var lowData = (navigator.connection && navigator.connection.saveData) ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (vbgs.length && !lowData) {
     var ytReady = false;
     var ytWaiting = [];
     var ytFailed = false;
