@@ -56,7 +56,7 @@
 /* ---------- discipline strip ---------- */
 .disc-strip {
   position: sticky;
-  top: 52px;
+  top: 58px;
   z-index: 40;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -464,3 +464,17 @@
 @media (max-width: 780px) { .disc-strip a { font-size: .66rem; } }
 .foot-links { line-height: 1.2; }
 .foot-links a { display: inline-block; padding: .65rem .15rem; }
+
+/* ---------- photos page ---------- */
+.pf-head { padding: 8.5rem 0 1rem; }
+.pf-head h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: .95; margin: .4rem 0 1rem; }
+.pf.sub-sec { padding-top: 1.2rem; }
+.pf-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.8rem; position: sticky; top: 60px; z-index: 30;
+  padding: .7rem 0; background: linear-gradient(180deg, rgba(10,4,4,.92), rgba(10,4,4,.75)); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.pf-chip { font: 700 .66rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  background: var(--card); border: 1px solid var(--border-soft); border-radius: 999px; padding: .7rem 1rem; min-height: 40px; cursor: pointer;
+  transition: color .25s, border-color .25s, background .25s; }
+.pf-chip:hover { color: var(--text); border-color: var(--border); }
+.pf-chip.on { color: #06060f; background: var(--grad-hot); border-color: transparent; }
+.pf .pgal-item[hidden] { display: none; }
+@media (max-width: 780px) { .pf-head { padding-top: 6.5rem; } .pf-chips { top: 58px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .pf-chips::-webkit-scrollbar { display: none; } .pf-chip { flex: 0 0 auto; } }

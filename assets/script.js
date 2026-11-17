@@ -123,8 +123,15 @@
       if (lightboxPrev) lightboxPrev.classList.toggle("on", many);
       if (lightboxNext) lightboxNext.classList.toggle("on", many);
     }
-    function showPhoto(i) {
+    function showPhoto(i, dir) {
       if (!photoEls.length) return;
+      dir = dir || 1;
+      // skip photos hidden by a filter
+      for (var tries = 0; tries < photoEls.length; tries++) {
+        var k = (i + photoEls.length) % photoEls.length;
+        if (!photoEls[k].hidden) break;
+        i += dir;
+      }
       photoIndex = (i + photoEls.length) % photoEls.length;
       var el = photoEls[photoIndex];
       lightboxFrame.classList.remove("wide");
@@ -157,7 +164,7 @@
     });
     if (lightboxPrev) {
       lightboxPrev.addEventListener("click", function (ev) {
-        ev.stopPropagation(); showPhoto(photoIndex - 1);
+        ev.stopPropagation(); showPhoto(photoIndex - 1, -1);
       });
     }
     if (lightboxNext) {
