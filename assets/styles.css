@@ -1627,3 +1627,7 @@ footer {
   .gal-grid > .gal-item, .acts-grid > .act-card { margin-bottom: 10px; }
 }
 @media (max-width: 420px) { .acts-grid { column-count: 1; } }
+
+/* acts feed: no lift on hover (the lift moved cards out from under the cursor and made them flicker) */
+.acts-grid > .act-card { transform: translateZ(0); }
+.acts-grid > .act-card:hover { transform: translateZ(0); }
