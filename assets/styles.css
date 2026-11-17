@@ -1683,3 +1683,7 @@ footer {
   .reel-top > .reel-btns { flex-direction: column; align-items: center; gap: .7rem; }
   .reel-top > .reel-btns .btn { width: min(320px, 100%); justify-content: center; text-align: center; }
 }
+
+/* classes: photo above the weekly schedule */
+.class-photo { margin: 2.4rem 0 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.class-photo img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; object-position: 50% 45%; }
