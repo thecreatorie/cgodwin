@@ -1650,3 +1650,6 @@ footer {
 .burger { padding: 9px; margin: -9px; }
 .foot-inner a { display: inline-block; padding: .55rem 0; }
 .badge { font-size: .62rem; }
+
+/* parent menu item highlight when on one of its pages */
+.has-sub.is-active > .nav-sub-toggle { color: var(--flame); }
