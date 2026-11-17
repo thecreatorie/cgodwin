@@ -1687,3 +1687,7 @@ footer {
 /* classes: photo above the weekly schedule */
 .class-photo { margin: 2.4rem 0 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
 .class-photo img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; object-position: 50% 45%; }
+
+/* sections with a looping background video */
+.has-vbg { overflow: hidden; }
+.has-vbg::before { z-index: 1; }
