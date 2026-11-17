@@ -1627,3 +1627,21 @@ footer {
   .gal-grid > .gal-item, .acts-grid > .act-card { margin-bottom: 10px; }
 }
 @media (max-width: 420px) { .acts-grid { column-count: 1; } }
+
+/* acts feed: no lift on hover (the lift moved cards out from under the cursor and made them flicker) */
+.acts-grid > .act-card { transform: translateZ(0); }
+.acts-grid > .act-card:hover { transform: translateZ(0); }
+
+/* ---------- weekly class schedule ---------- */
+.sched-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin-top: 2.4rem; }
+.sched-day { border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.6rem 1.2rem;
+  background: radial-gradient(120% 120% at 0% 0%, rgba(229,35,27,.12), transparent 60%), var(--card); }
+.sched-day h3 { font-size: 1.7rem; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .6rem;
+  background: var(--grad-hot); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.sched-day ul { list-style: none; margin: 0; padding: 0; }
+.sched-day li { display: grid; grid-template-columns: 4.6rem 1fr; gap: .1rem .8rem; padding: .8rem 0; border-top: 1px solid var(--border-soft); }
+.sched-time { grid-row: span 2; font: 700 .72rem var(--font-mono); letter-spacing: .08em; color: var(--flame); padding-top: .2rem; }
+.sched-name { color: var(--text); font-weight: 400; font-size: 1rem; line-height: 1.35; }
+.sched-room { font: 700 .58rem var(--font-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.sched-note { margin-top: 1.4rem; text-align: center; font-size: .92rem; color: var(--muted); }
+@media (max-width: 900px) { .sched-grid { grid-template-columns: 1fr; } }
