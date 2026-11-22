@@ -558,3 +558,4 @@
   .rz-disc { grid-template-columns: 1fr; }
   .rz-d li { white-space: normal; }
 }
+.about-btns { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
