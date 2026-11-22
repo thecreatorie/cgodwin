@@ -491,3 +491,70 @@
 .pgal-item { display: inline-block; width: 100%; vertical-align: top; transform: translateZ(0); }
 .pgal-item.reveal, .pgal-item.reveal.in { transform: translateZ(0); transition: opacity .8s ease, border-color .35s, box-shadow .35s; }
 .pgal-item:hover, .pgal-item:focus-visible { transform: translateZ(0); }
+
+/* ===== Resume page (resume.html) ===== */
+.rz-sec { padding-top: 5rem; }
+.rz { display: flex; flex-direction: column; gap: 1.1rem; }
+.rz-card { border-radius: 26px; padding: 1.4rem 1.6rem; background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border: 1px solid rgba(255,138,60,.22); }
+.rz-pill { display: inline-block; font-family: var(--font-display); font-size: 1.2rem; letter-spacing: .06em; line-height: 1; color: #1a0605; background: var(--grad-hot); border-radius: 99px; padding: .45rem 1rem .3rem; }
+.rz-top { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 2rem; align-items: end; }
+.rz-arch { aspect-ratio: 3 / 3.9; border-radius: 999px 999px 26px 26px; overflow: hidden; border: 2px solid rgba(255,138,60,.55); box-shadow: 0 0 40px rgba(255,46,31,.3); }
+.rz-arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 6%; }
+.rz-id { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+.rz-name { font-family: var(--font-display); font-weight: 400; font-size: clamp(3.6rem, 8vw, 6.6rem); line-height: .84; letter-spacing: .02em; color: var(--text); margin: 0; }
+.rz-name span { background: var(--grad-hot); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.rz-cp { font-family: var(--font-display); font-size: clamp(1.6rem, 3.2vw, 2.4rem); letter-spacing: .2em; line-height: 1; margin-top: .7rem; }
+.rz-cp::before { content: ""; display: inline-block; width: 3rem; height: 2px; background: var(--grad-hot); vertical-align: middle; margin-right: .9rem; position: relative; top: -.15em; }
+.rz-dis { font-family: var(--font-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem); letter-spacing: .12em; margin-top: .5rem; }
+.rz-dis i { font-style: normal; color: var(--flame); margin: 0 .4rem; }
+.rz-contact { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem 1.4rem; margin-top: 1.3rem; text-align: left; width: 100%; max-width: 640px; }
+.rz-contact a { display: flex; align-items: center; gap: .6rem; color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 400; overflow-wrap: anywhere; }
+.rz-contact a:hover { color: var(--flame); }
+.rz-contact svg { width: 16px; height: 16px; flex: none; stroke: var(--flame); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.rz-dl { margin-top: 1.1rem; }
+.rz-disc { display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; gap: 1rem; scroll-margin-top: 90px; }
+.rz-d h3 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: .95; letter-spacing: .02em; color: #ff9a3c; margin: 0; }
+.rz-d:nth-child(2) h3 { color: #ff7a2c; } .rz-d:nth-child(3) h3 { color: #ff4a24; } .rz-d:nth-child(4) h3 { color: var(--gold); }
+.rz-since { font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; font-size: .66rem; letter-spacing: .16em; color: var(--muted); margin: .3rem 0 .8rem; }
+.rz-d ul { list-style: none; margin: 0; padding: 0; }
+.rz-d li { display: inline-block; position: relative; padding-left: 1.05rem; margin: 0 .6rem .4rem 0; font-size: 1.02rem; font-weight: 400; color: var(--text); white-space: nowrap; }
+.rz-d li::before { content: "✦"; position: absolute; left: 0; top: .2em; font-size: .7rem; color: var(--flame); }
+.rz-hl { scroll-margin-top: 90px; }
+.rz-events { font-family: var(--font-display); font-size: clamp(1.15rem, 2vw, 1.45rem); line-height: 1.5; letter-spacing: .04em; margin: 0; }
+.rz-events .rz-pill { margin-right: .6rem; vertical-align: .1em; }
+.rz-events b { font-weight: 400; white-space: nowrap; }
+.rz-events i { font-style: normal; color: var(--flame); font-size: .8em; margin: 0 .35rem; }
+.rz-sub { display: grid; grid-template-columns: 9rem 1fr; gap: .5rem 1rem; margin: 1rem 0 0; }
+.rz-sub dt { font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; font-size: .7rem; letter-spacing: .16em; color: var(--gold); padding-top: .25rem; }
+.rz-sub dd { margin: 0; font-size: 1rem; font-weight: 400; line-height: 1.55; }
+.rz-bottom { display: grid; grid-template-columns: minmax(260px, 1fr) 2fr; gap: 1rem; }
+.rz-meas { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; margin: 1rem 0 0; }
+.rz-meas div { display: flex; justify-content: space-between; border-bottom: 1px dotted rgba(255,138,60,.3); padding: .3rem 0; font-size: 1rem; }
+.rz-meas dt { color: var(--muted); } .rz-meas dd { margin: 0; font-weight: 400; }
+.rz-more { display: inline-block; margin-top: .9rem; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--flame); text-decoration: none; }
+.rz-more:hover { color: var(--gold); }
+.rz-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.rz-tags span { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: .06em; line-height: 1; border: 1px solid rgba(255,138,60,.5); border-radius: 99px; padding: .5rem .85rem .35rem; }
+.rz-tags span em { font-style: normal; font-family: var(--font-body); font-size: .8rem; letter-spacing: 0; color: var(--muted); margin-left: .4rem; }
+.rz-tags span.hot { background: var(--grad-hot); color: #1a0605; border-color: transparent; }
+.rz-tags span.hot em { color: rgba(26,6,5,.7); }
+.rz-end { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+@media (max-width: 1020px) {
+  .rz-disc { grid-template-columns: 1fr 1fr; }
+  .rz-bottom { grid-template-columns: 1fr; }
+}
+@media (max-width: 780px) {
+  .rz-sec { padding-top: 3.5rem; }
+  .rz-top { grid-template-columns: 1fr; gap: 1.4rem; }
+  .rz-arch { width: min(320px, 82%); margin: 0 auto; }
+  .rz-id { text-align: center; align-items: center; }
+  .rz-cp::before { display: none; }
+  .rz-contact { grid-template-columns: 1fr; max-width: 360px; }
+  .rz-sub { grid-template-columns: 1fr; gap: .2rem; }
+  .rz-sub dd { margin-bottom: .6rem; }
+  .rz-card { padding: 1.2rem 1.2rem; border-radius: 22px; }
+}
+@media (max-width: 560px) {
+  .rz-disc { grid-template-columns: 1fr; }
+  .rz-d li { white-space: normal; }
+}
